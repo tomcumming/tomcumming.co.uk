@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tom Cumming</title>
+
+		<style>
+html
+{
+	height: 100%;
+}
+
+body
+{
+	margin: 0;
+	height: 100%;
+//	background: #aaa;
+
+	font-family: sans-serif;
+}
+
+#bgcanvas
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+
+	z-index: -1;
+}
+
+#table
+{
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+
+#cell
+{
+	display: table-cell;
+	vertical-align: middle;
+
+	text-align: center;
+}
+
+#container
+{
+	display: inline-block;
+}
+
+h1
+{
+	color: #fff;
+	text-shadow: 0px 0px 10px #000;
+
+	font-size: 5em;
+}
+
+img
+{
+	filter: drop-shadow(0px 0px 10px #fff);
+
+	margin-left: 32px;
+	margin-right: 32px;
+}
+
+a img, a:hover img, a:visited img
+{
+	border: 0;
+}
+
+a
+{
+	text-decoration: none;
+}
+		</style>
+		<script>
+// Copyright Tom Cumming 2014
+
+var canvas = null;
+var ctx = null;
+
+var circleSize = 32;
+var fade = 10;
+var delayFrames = 50;
+
+var lastX = null;
+
+function draw(time)
+{
+	var x = Math.floor(time / 50) % 
+		(canvas.width / circleSize + fade + delayFrames);
+
+	if(lastX === x)
+	{
+		window.requestAnimationFrame(draw);
+		return;
+	}
+
+	ctx.fillStyle = "#000";
+	ctx.fillRect((lastX - (fade + 1)) * circleSize, 0, 
+		circleSize * fade, canvas.height);
+
+	for(var x2 = x - fade; x2 <= x; x2++)
+	{		
+		for(var y = 0; y < canvas.height / circleSize; y++)
+		{
+			ctx.beginPath();
+			ctx.arc(circleSize / 2 + circleSize * x2, 
+				circleSize / 2 + circleSize * y, 16, 0, Math.PI * 2);
+			var c = (1 + fade - (x - x2)) / (1 + fade);
+			c = Math.pow(c, 2);
+			c = Math.floor(c * 255);
+			ctx.fillStyle = "rgb(" + c + ", " + c + ", " + c + ")";
+			ctx.fill();
+		}
+	}
+
+	lastX = x;
+	
+	window.requestAnimationFrame(draw);
+}
+
+function resize()
+{
+	var canvasStyle = window.getComputedStyle(canvas);
+
+	var wStr = canvasStyle.width;
+	var hStr = canvasStyle.height;
+
+	canvas.width = wStr.substr(0, wStr.length - 2);
+	canvas.height = hStr.substr(0, hStr.length - 2);
+
+	ctx.fillColor = "#000";
+	ctx.fillRect(0, 0, canvas.width - 1, canvas.height - 1);
+
+	window.requestAnimationFrame(draw);
+}
+
+function init()
+{
+	canvas = document.getElementById('bgcanvas');
+	ctx = canvas.getContext('2d');
+
+	window.onresize = resize;
+
+	resize();
+}
+
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="bgcanvas"></canvas>
+		<div id="table">
+			<div id="cell">
+				<div id="container">
+					<h1>tomcumming.co.uk</h1>
+					<a href="https://github.com/tomcumming">
+						<img src="GitHub-Mark-Light-120px-plus.png" />
+					</a>
+					<a href="mailto:mail@tomcumming.co.uk">
+						<img src="email.png" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
