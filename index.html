@@ -1,169 +1,37 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Tom Cumming</title>
 
-		<style>
-html
-{
-	height: 100%;
-}
+<head>
+  <meta charset="utf-8">
+  <title>tomcumming.co.uk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="theme.css">
+  <script src="script.js"></script>
+</head>
 
-body
-{
-	margin: 0;
-	height: 100%;
-//	background: #aaa;
+<body onload="TC.init()">  
+  <div id="container">
+    <div id="wrapper">
+      <div>
+        <div id="name">tomcumming.co.uk</div>
+      </div>
+      <div id="icon-wrapper">
+        <a href="https://github.com/tomcumming" class="icon-link">
+          <svg viewbox="-1 -1 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"
+            />
+          </svg>
+        </a>
+        <a href="mailto:mail@tomcumming.co.uk" class="icon-link">
+          <svg viewbox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 4v8c0 0.55 0.45 1 1 1h12c0.55 0 1-0.45 1-1V4c0-0.55-0.45-1-1-1H1c-0.55 0-1 0.45-1 1z m13 0L7 9 1 4h12zM1 5.5l4 3L1 11.5V5.5z m1 6.5l3.5-3 1.5 1.5 1.5-1.5 3.5 3H2z m11-0.5L9 8.5l4-3v6z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <canvas id="background-canvas"></canvas>
+</body>
 
-	font-family: sans-serif;
-}
-
-#bgcanvas
-{
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-
-	z-index: -1;
-}
-
-#table
-{
-	width: 100%;
-	height: 100%;
-	display: table;
-}
-
-#cell
-{
-	display: table-cell;
-	vertical-align: middle;
-
-	text-align: center;
-}
-
-#container
-{
-	display: inline-block;
-}
-
-h1
-{
-	color: #fff;
-	text-shadow: 0px 0px 10px #000;
-
-	font-size: 5em;
-}
-
-img
-{
-	filter: drop-shadow(0px 0px 10px #fff);
-
-	margin-left: 32px;
-	margin-right: 32px;
-}
-
-a img, a:hover img, a:visited img
-{
-	border: 0;
-}
-
-a
-{
-	text-decoration: none;
-}
-		</style>
-		<script>
-// Copyright Tom Cumming 2014
-
-var canvas = null;
-var ctx = null;
-
-var circleSize = 32;
-var fade = 10;
-var delayFrames = 50;
-
-var lastX = null;
-
-function draw(time)
-{
-	var x = Math.floor(time / 50) % 
-		(canvas.width / circleSize + fade + delayFrames);
-
-	if(lastX === x)
-	{
-		window.requestAnimationFrame(draw);
-		return;
-	}
-
-	ctx.fillStyle = "#000";
-	ctx.fillRect((lastX - (fade + 1)) * circleSize, 0, 
-		circleSize * fade, canvas.height);
-
-	for(var x2 = x - fade; x2 <= x; x2++)
-	{		
-		for(var y = 0; y < canvas.height / circleSize; y++)
-		{
-			ctx.beginPath();
-			ctx.arc(circleSize / 2 + circleSize * x2, 
-				circleSize / 2 + circleSize * y, 16, 0, Math.PI * 2);
-			var c = (1 + fade - (x - x2)) / (1 + fade);
-			c = Math.pow(c, 2);
-			c = Math.floor(c * 255);
-			ctx.fillStyle = "rgb(" + c + ", " + c + ", " + c + ")";
-			ctx.fill();
-		}
-	}
-
-	lastX = x;
-	
-	window.requestAnimationFrame(draw);
-}
-
-function resize()
-{
-	var canvasStyle = window.getComputedStyle(canvas);
-
-	var wStr = canvasStyle.width;
-	var hStr = canvasStyle.height;
-
-	canvas.width = wStr.substr(0, wStr.length - 2);
-	canvas.height = hStr.substr(0, hStr.length - 2);
-
-	ctx.fillColor = "#000";
-	ctx.fillRect(0, 0, canvas.width - 1, canvas.height - 1);
-
-	window.requestAnimationFrame(draw);
-}
-
-function init()
-{
-	canvas = document.getElementById('bgcanvas');
-	ctx = canvas.getContext('2d');
-
-	window.onresize = resize;
-
-	resize();
-}
-
-		</script>
-	</head>
-	<body onload="init()">
-		<canvas id="bgcanvas"></canvas>
-		<div id="table">
-			<div id="cell">
-				<div id="container">
-					<h1>tomcumming.co.uk</h1>
-					<a href="https://github.com/tomcumming">
-						<img src="GitHub-Mark-Light-120px-plus.png" />
-					</a>
-					<a href="mailto:mail@tomcumming.co.uk">
-						<img src="email.png" />
-					</a>
-				</div>
-			</div>
-		</div>
-	</body>
 </html>

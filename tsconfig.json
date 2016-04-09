@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outFile": "script.js",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "module": "system"
+  },
+  "files": [
+    "animations.ts",
+    "script.ts"
+  ]
+}
