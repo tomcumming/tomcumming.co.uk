@@ -56,6 +56,7 @@ html, body {
       margin-left: $font-size / 2;
       margin-right: $font-size / 2;
       filter: drop-shadow(0px 0px ($font-size / 4) white);
+      -webkit-filter: drop-shadow(0px 0px ($font-size / 4) white);
     }
   }
   
