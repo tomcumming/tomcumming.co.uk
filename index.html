@@ -14,8 +14,34 @@ body {
   width: 100vw;
   height: 100vh;
 
-  background: white;
+  background: lightgray;
   color: black;
+
+  overflow: hidden;
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+}
+
+.icon-wrapper svg {
+  width: 14vw;
+  animation: pop-upwards 1s ease 4s forwards;
+  transform: translateY(16vw);
+}
+
+.icon-wrapper svg.slight-delay {
+  animation-delay: 4.25s;
+}
+
+.icon-link {
+  margin: 0 2vw 0 2vw;
 }
 
 .wrapper {
@@ -26,126 +52,82 @@ body {
 
   width: 100vw;
   height: 100vh;
-
-  perspective: 100vw;
 }
 
-.row {
-  padding: 2vh;
-}
-
-.name {
-  font-family: sans-serif;
+.logo {
   font-size: 8vw;
+  font-family: sans-serif;
+  display: inline-block;
+  position: relative;
+  color:white;
+  font-weight: bolder;
+  animation: iso-transform 3s ease 1s forwards;
 }
 
-.icon-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+.logo::before {
+  content: 'tomcumming.co.uk';
+  display: inline-block;
+  position: absolute;
+  right:0;
+  color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  text-shadow: black 0 0 1vw;
+
+  animation: iso-shadow 3s ease 1s forwards;
 }
 
-.icon-wrapper svg {
-  width: 14vw;
-}
-
-.icon-link {
-  margin: 0 2vw 0 2vw;
-}
-
-.panel {
-  transform: rotate3d(0, 0, 0, 0deg);
-  transform-style: preserve-3d;
-  transform-origin: 50vw 50vh -80vw;
-
-  animation-duration: 20s;
-  animation-name: rotate-a-bit;
-  animation-iteration-count: infinite;
-}
-
-.shadow {
-  animation-duration: 20s;
-  animation-name: inverse-shadow;
-  animation-iteration-count: infinite;
-
-  box-shadow: 20px 20px 20px gray;
-}
-
-a, a:visited, a:active, a:hover {
-  border: 0;
-  text-decoration: none;
-  outline: none;
-}
-
-@keyframes rotate-a-bit {
-  0% {
-    transform: rotate3d(0, 0, 0, 0deg);
-  }
-  20% {
-    transform: rotate3d(1, 1, 0, 5deg);
-  }
-  40% {
-    transform: rotate3d(1, -0.5, 0, 5deg);
-  }
-  60% {
-    transform: rotate3d(-1, -1, 0, 5deg);
-  }
-  80% {
-    transform: rotate3d(-1, 1, 0, 5deg);
-  }
-  100% {
-    transform: rotate3d(0, 0, 0, 0deg);
+@keyframes iso-transform {
+  from { }
+  to {
+    transform: rotateX(45deg) rotateZ(-45deg);
   }
 }
 
-@keyframes inverse-shadow {
-  0% {
-    box-shadow: 0vw 0vw 5vw gray;
-  }
-  20% {
-    box-shadow: -2vw 2vw 5vw gray;
-  }
-  40% {
-    box-shadow: 1vw 2vw 5vw gray;
-  }
-  60% {
-    box-shadow: 2vw -2vw 5vw gray;
-  }
-  80% {
-    box-shadow: -2vw -2vw 5vw gray;
-  }
-  100% {
-    box-shadow: 0vw 0vw 5vw gray;
+@keyframes iso-shadow {
+  from { }
+  to {
+    transform: translateX(-0.5vw) translateY(0.5vw);
   }
 }
-  </style>
-</head>
 
-<body>
-  <div class="wrapper">
-    <div class="panel">
-      <div class="shadow">
-        <div class="row">
-            <div class="name">tomcumming.co.uk</div>
-        </div>
-        <div class="row icon-wrapper">
-          <a href="https://github.com/tomcumming" class="icon-link">
-            <svg viewbox="-1 -1 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"
-              />
-            </svg>
-          </a>
-          <a href="mailto:mail@tomcumming.co.uk" class="icon-link">
-            <svg viewbox="0 0 16 14" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 4v8c0 0.55 0.45 1 1 1h12c0.55 0 1-0.45 1-1V4c0-0.55-0.45-1-1-1H1c-0.55 0-1 0.45-1 1z m13 0L7 9 1 4h12zM1 5.5l4 3L1 11.5V5.5z m1 6.5l3.5-3 1.5 1.5 1.5-1.5 3.5 3H2z m11-0.5L9 8.5l4-3v6z"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
+@keyframes pop-upwards {
+  from {
+    transform: translateY(16vw);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.logo.iso {
+  transition: transform 3s ease 0s;
+  transform: rotateX(45deg) rotateZ(-45deg);
+}
+
+.logo.iso::before {
+  transition: transform 3s ease 0s;
+  transform: translateX(-0.5vw) translateY(0.5vw);
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="logo">tomcumming.co.uk</div>
     </div>
-  </div>
-</body>
-
+    <div class="row icon-wrapper">
+      <a href="https://github.com/tomcumming" class="icon-link">
+        <svg viewbox="-1 -1 18 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z"
+          />
+        </svg>
+      </a>
+      <a href="mailto:mail@tomcumming.co.uk" class="icon-link">
+        <svg viewbox="0 0 16 14" xmlns="http://www.w3.org/2000/svg" class="slight-delay">
+          <path d="M0 4v8c0 0.55 0.45 1 1 1h12c0.55 0 1-0.45 1-1V4c0-0.55-0.45-1-1-1H1c-0.55 0-1 0.45-1 1z m13 0L7 9 1 4h12zM1 5.5l4 3L1 11.5V5.5z m1 6.5l3.5-3 1.5 1.5 1.5-1.5 3.5 3H2z m11-0.5L9 8.5l4-3v6z"
+          />
+        </svg>
+      </a>
+    </div>
+  </body>
 </html>
